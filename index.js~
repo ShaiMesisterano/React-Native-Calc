@@ -1,0 +1,17 @@
+import { createStore } from 'redux'
+import calcApp from './reducers'
+import { print, exec, Commands } from './actions' // TODO: remove
+
+let store = createStore(calcApp)
+
+console.log(store.getState());
+
+let unsubscribe = store.subscribe( () => console.log(store.getState()) );
+
+store.dispatch(print('1'));
+store.dispatch(print('2'));
+store.dispatch(print('123'));
+store.dispatch(exec(1,1, Commands.SUM, 2));
+store.dispatch(exec(1,1, Commands.SUB, 0));
+
+unsubscribe();

@@ -1,0 +1,18 @@
+import React, { Component } from 'react';
+import {View, Text} from 'react-native';
+
+export default class About extends Component {
+    getDefaultProps() {
+	return {
+	    title: 'About'
+	};
+    }
+
+    render() {
+	return (
+		<View>
+		<Text>Hi, {this.props.title}</Text>
+		</View>
+	);
+    }
+}
