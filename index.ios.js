@@ -1,38 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import {
-    AppRegistry,
-    View,
-    Text,
-    Navigator,
-    AlertIOS,
-    TouchableHighlight} from 'react-native';
-import About from './About';
-import Calc from './Calc';
+import React from 'react';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import calcApp from './reducers'
+import App from './components/App'
 
 class HelloWorld extends Component {
     render() {
-o	return (
-		<Navigator
-	    initialRoute={{ title: 'My Initial Scene', index: 0 }}
-	    renderScene={(route, navigator) =>
-			 <Calc
-			 title={route.title}
-			 onForward={ () => {
-			     const nextIndex = route.index + 1;
-			     navigator.push({
-				 title: 'Scene ' + nextIndex,
-				 index: nextIndex,
-			     });
-			 }}
-			 onBack={() => {
-			     if (route.index > 0) {
-				 navigator.pop();
-			     }
-			 }}
-			 />
-			}
-		/>
-	)
+	    <Provider store={store}>
+	    <App />
+	    </Provider>
     }
 }
 

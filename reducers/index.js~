@@ -1,0 +1,19 @@
+import { combineReducers } from 'redux'
+
+function execute(state, action) {
+    if (action.type === 'SET_COMMAND') {
+	if (action.command === 'SUM') {
+	    return Object.assign( {}, state, { result: num1 + num2 } )
+	}
+	else if (action.command === 'SUB'){
+	    return Object.assign( {}, state, { result: num1 - num2 } )
+	}
+    }
+    return state;
+}
+
+const calcApp = combineReducers({
+    execute
+});
+
+export default calcApp
