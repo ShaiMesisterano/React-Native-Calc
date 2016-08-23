@@ -1,0 +1,15 @@
+import React, { Component, PropTypes } from 'react';
+import Num from './Num'
+
+const Pad = () => (
+	<Num
+    text='1'
+    onPress={ () => onNumPress(text) }
+	/>
+	<Num
+    text='2'
+    onPress={ () => onNumPress(text) }
+	/>
+)
+
+export default Pad

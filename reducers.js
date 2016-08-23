@@ -1,30 +1,56 @@
 import { combineReducers } from 'redux'
-import { PRINT, EXEC, Commands } from './actions.js'
+import { SET_NUM, SET_COMMAND, EXEC, RESET, Commands } from './actions.js'
 
-function printOutput(state = [], action) {
-    return [
-	...state,
-	{
-	    output: action.output
-	}
-    ];
+const INITIAL_STATE = {
+    num1: "",
+    num2: "",
+    command: null,
+    result: ""
 }
 
-function execCommand(state = {num1: 0 ,num2: 0, command: Commands.SUM, result: 0}, action) {
-    if (action.type === EXEC) {
-	if (action.command === Commands.SUM) {
-	    return Object.assign( {}, state, { result: num1 + num2 } )
-	}
-	else if (action.command === Commands.SUB){
-	    return Object.assign( {}, state, { result: num1 - num2 } )
-	}
+const sum = (num1, num2) => {
+    return [ num1, num2 ].reduce(function(x1, x2){ return Math.floor(x1) + Math.floor(x2) }, 0);
+}
+
+const sub = (num1, num2) => {
+    return [ num1, num2 ].reduce(function(x1, x2){ return Math.floor(x1) - Math.floor(x2) }, 0);
+}
+
+const getResult = (num1, num2, command) => {
+    if (num1){
+        if (num2){
+            if (command){
+                return command === Commands.SUM ?
+                    sum(num1, num2) :
+                    sub(num1, num2)
+                }
+            return num2;
+        }
+        return num1;
     }
-    return state;
+    return null;
+}
+
+function command(state = INITIAL_STATE, action){
+    switch (action.type){
+    case SET_NUM:
+	if (!state.command){
+            return {...state, num1: state.num1 + action.num };
+        }
+        return {...state, num2: state.num2 + action.num };
+    case SET_COMMAND:
+        return { ...state, command: action.command };       
+    case EXEC:
+	return { ...state, result: getResult(state.num1, state.num2, state.command) }
+    case RESET:
+	return { ...state, ...INITIAL_STATE }
+    default:
+	return state;
+    }
 }
 
 const calcApp = combineReducers({
-    printOutput,
-    execCommand
+     command
 });
 
 export default calcApp

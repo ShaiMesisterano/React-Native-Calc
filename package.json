@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "ramda": "^0.22.1",
     "react": "^0.14.8",
-    "react-native": "^0.25.1"
+    "react-native": "^0.31.0"
   }
 }
